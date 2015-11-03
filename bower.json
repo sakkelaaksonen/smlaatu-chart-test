@@ -1,0 +1,13 @@
+{
+  "name": "Chart test",
+  "version": "0.0.1",
+  "description": "Testing chart data for SMLAATU",
+  "repository": "",
+  "dependencies": {
+    "angular": "1.4.7",
+    "angular-charts" : "0.2.7"
+  },
+  "resolutions": {
+    "angular": "1.4.7"
+  }
+}
