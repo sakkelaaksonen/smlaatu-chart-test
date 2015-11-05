@@ -5,7 +5,9 @@
   "repository": "",
   "dependencies": {
     "angular": "1.4.7",
-    "angular-charts" : "0.2.7"
+    "angular-charts" : "0.2.7",
+    "angular-chart.js" : "0.8.5",
+    "amcharts-angular": ""
   },
   "resolutions": {
     "angular": "1.4.7"

@@ -6,7 +6,7 @@
   <script src='./bower_components/d3/d3.min.js' type='text/javascript'></script>
   <script src='./bower_components/angular-charts/dist/angular-charts.js' type='text/javascript'></script>
   <script src="js/app.js"></script>
-  <title>Chart test</title>
+  <title>Angular-Charts test</title>
   <style>
   body{ width:100%;}
   #the-chart {
@@ -17,10 +17,11 @@ width: 100%;
 </head>
 <body>
   <div ng-controller="appController">
-  Foo
+  <h2>Angular Charts line chart rendering. Max dataset length 1185 nodes</h2>
     <div id="the-chart" ac-chart="'line'" ac-data="chartData" ac-config="chartConfig">
     </div>
   </div>
+  <p>Compare to <a href="angular-chartjs-test.html">Angular-Chart.js</a></p>
 
 </body>
 </html>
