@@ -7,7 +7,8 @@
     "angular": "1.4.7",
     "angular-charts" : "0.2.7",
     "angular-chart.js" : "0.8.5",
-    "amcharts-angular": ""
+    "amcharts-angular": "",
+    "underscore": ""
   },
   "resolutions": {
     "angular": "1.4.7"

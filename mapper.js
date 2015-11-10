@@ -1,9 +1,6 @@
-(function() {
-  'use strict';
+var _ = require("underscore");
 
-  angular
-    .module("amchart-app", ['amChartsDirective'])
-    .constant('DATA',{
+var data = {
   "parameter": "totP_0",
   "days": [
     "2006-01-01",
@@ -6591,77 +6588,20 @@
       "grid_id": 1120999999
     }
   ]
-})
-    .constant('DATE', '2006-01-01')
-    .controller('appController', function($scope, DATE, DATA, $filter) {
-      
-      
-      var days = DATA.days;
-      var readyData = [];
-      var data = DATA.results.map(function(resultset){
-        return resultset.values;
-
-      });
+};
 
 
-       data.map(function(value, daySince) {
-          var di = new Date(DATE);
-          di.setDate(daySince);
-          return {
-            date: di,
-            value: value
-          };
-        });
 
-      $scope.amChartOptions = {
-        data: readyData,
-        "type": "serial",
-        "theme": "light",
-        "marginRight": 80,
-        "autoMarginOffset": 20,
-        "valueAxes": [{
-          "id": "v1",
-          "axisAlpha": 0,
-          "position": "left"
-        }],
-        "balloon": {
-          "borderThickness": 1,
-          "shadowAlpha": 0
-        },
-        "graphs": readyGraphs,
-        "chartScrollbar": {
-          "graph": "g1",
-          "oppositeAxis": false,
-          "offset": 30,
-          "scrollbarHeight": 80,
-          "backgroundAlpha": 0,
-          "selectedBackgroundAlpha": 0.1,
-          "selectedBackgroundColor": "#888888",
-          "graphFillAlpha": 0,
-          "graphLineAlpha": 0.5,
-          "selectedGraphFillAlpha": 0,
-          "selectedGraphLineAlpha": 1,
-          "autoGridCount": true,
-          "color": "#AAAAAA"
-        },
-        "chartCursor": {
-          "pan": true,
-          "valueLineEnabled": true,
-          "valueLineBalloonEnabled": true,
-          "cursorAlpha": 0,
-          "valueLineAlpha": 0.2
-        },
-        "categoryField": "date",
-        "categoryAxis": {
-          "parseDates": true,
-          "dashLength": 1,
-          "minorGridEnabled": true
-        },
-        "export": {
-          "enabled": true
-        }
-      };
+var readyData = data.days.map(function(d){return {date:d}});
 
-    });
+data.results.forEach(function(set){
+  set.values.forEach(function(val,i){
+    var datacell = {};
+    datacell[set.grid_id] = val;
+    _(readyData[i]).extend(datacell);
+  });
 
-})();
+});
+
+
+console.log(readyData);
