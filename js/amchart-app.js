@@ -87,8 +87,13 @@
       var getChartOptions = function() {
         return {
           "data": null,
+          "pathToImages": "./bower_components/amcharts/dist/amcharts/images/", // required for grips
+          // "pathToImages": "http://cdn.amcharts.com/lib/3/images/", // required for grips
           "type": "serial",
           "theme": "light",
+          "legend":{
+        "useGraphSettings": true
+    },
           //"marginRight": 80,
           //"autoMarginOffset": 20,
           "valueAxes": null,
