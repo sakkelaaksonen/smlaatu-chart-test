@@ -137,26 +137,19 @@
       };
 
 
-      $scope.chartGraph = [1];
-      $scope.chartData = [1];
-      $scope.chartValueAxes = [1];
+      
 
-      var graphPromise = function() {
+      var startGraph = function() {
 
         var deferred = $q.defer();
-
         //base config
-
         WaterBodyService.getParameterForWaterBody(paramData).then(function(response) {
           console.log('data from service', response);
           var data = response.data;
           var chartOptions = getChartOptions();
-          $scope.chartData = getData(data);
-          $scope.chartGraph = getGraphs(data);
-          $scope.chartValueAxes = getValueAxes(data);
-          chartOptions.data = $scope.chartData;
-          chartOptions.valueAxes = $scope.chartValueAxes
-          chartOptions.graphs = $scope.chartGraph;
+          chartOptions.data = getData(data);
+          chartOptions.valueAxes = getValueAxes(data);
+          chartOptions.graphs = getGraphs(data);
           deferred.resolve(chartOptions);
         })
 
@@ -164,10 +157,25 @@
           console.log('resolved chart config', chartOptions);
 
         });
+
         return deferred.promise;
       }
 
-      $scope.amChartOptions = graphPromise();
+      $scope.amChartOptions = startGraph();
+
+      $scope.updateGraph = function(){
+        WaterBodyService.getParameterForWaterBody(paramData).then(function(response) {
+          console.log('data from service', response);
+          var data = response.data;
+          var mod = data.results[0].values.map(function(v) {return v+10.8});
+          data.results[0].values = mod;
+          
+
+          $scope.$broadcast('amCharts.updateData', getData(data), 'directive');
+          // $scope.$broadcast('amCharts.triggerChartAnimate', null, 'directive');
+        });
+        
+      }
 
 
 
