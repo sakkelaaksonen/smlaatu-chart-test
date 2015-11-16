@@ -85,6 +85,7 @@
 
 
       var getChartOptions = function() {
+        console.info("AmCharts animations are disabled. you can try them on by removin 'startDuration: 0' from getChartOptions()")
         return {
           "data": null,
           "pathToImages": "./bower_components/amcharts/dist/amcharts/images/", // required for grips
@@ -102,6 +103,7 @@
             "shadowAlpha": 0
           },*/
           "graphs": null,
+          "startDuration":0,
           "chartScrollbar": {
             "graph": "g1",
             "oppositeAxis": false,
@@ -167,9 +169,8 @@
         WaterBodyService.getParameterForWaterBody(paramData).then(function(response) {
           console.log('data from service', response);
           var data = response.data;
-          var mod = data.results[0].values.map(function(v) {return v+10.8});
+          var mod = data.results[0].values.map(function(v) {return (v+Math.random() * -10 * -3.5 )});
           data.results[0].values = mod;
-          
 
           $scope.$broadcast('amCharts.updateData', getData(data), 'directive');
           // $scope.$broadcast('amCharts.triggerChartAnimate', null, 'directive');
