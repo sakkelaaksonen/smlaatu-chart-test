@@ -35,7 +35,15 @@
     <span ng-hide="loading">Event broadcast</span>
     <span ng-show="loading">Loading</span>
   </button>
-  <tester values="testerValues"></tester>
+<h4>Controller values:</h4>
+<div class="test-directive">A:{{values.a||"null"}},B:{{values.b||"null"}}</div>
+  <!-- scope: true -->
+  <h4>Directive values</h4>
+  <tester ></tester>
+
+  <!-- use scope {value:'='} -->
+  <!-- <tester value=""></tester> -->
+
   </p>  
 </div>
 

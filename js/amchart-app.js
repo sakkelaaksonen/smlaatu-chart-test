@@ -17,29 +17,37 @@
       return {
         restrict:'EA',
         template:'<div class="test-directive">A:{{values.a||"null"}},B:{{values.b||"null"}}</div>',
+        // scope:true,
+        
         scope:{
           values:'='
         },
         link:function($scope, $elem){
-          console.log('tester link function called');
-          $scope.$on('tester.newData',function(e,data){
-            console.log(data);
-            $scope.values = data;
-          });
 
-            // attr.watch(values);
+          console.log('tester link function called');
+          
+          $scope.$on('tester.newData',function(e,data){
+            //uncoupled data transfer from outside the parent scope
+            console.log(data);
+            //this will then update the template
+            $scope.values = data;
+            //example of changing directive DOM properties outside the digest loop.
+            $elem.css('color','red');
+            //or redraw maps with new data or something ;)
+          });
         }
       }
     })
     .controller('appController', function($scope, $q, $filter, WaterBodyService,$timeout) {
 
-      $scope.testerValues = {a:1,b:2};
+    //tester directive code
+      $scope.values = {a:1,b:2};
       $scope.loading = false;
       $scope.testerDirect= function(){
-        console.log('direct testing event called')
-        $scope.testerValues = {a:44,b:444};
-        // $scope.$broadcast('tester.newData',{a:44,b:444});
 
+        console.log('direct testing event called');
+        //this only calls digest loop and updates directive template.
+        $scope.values = {a:44,b:444};
       }
 
       $scope.testerEvent = function(){
@@ -51,16 +59,16 @@
 
       $scope.testerDeferred =function(){
         //or http.get().success() etc
+        console.log('deferred data loading');
         $scope.loading = true;
         $timeout(function(){
-
           $scope.$broadcast('tester.newData',{a:99,b:999});
           $scope.loading = false;
         },1000)
 
       }
 
-
+      //Charts code
       var paramData = {
         "wb_list": [1008000000, 1010000000, 1045000000],
         "timespan": ["2011-09-01", "2011-09-20"],
