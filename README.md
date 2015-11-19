@@ -6,7 +6,7 @@
 		
 		bower install
 
-		gulp start server
+		gulp start-server
 
 
 ## Things to do
