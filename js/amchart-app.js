@@ -13,7 +13,53 @@
         }
       };
     })
-    .controller('appController', function($scope, $q, $filter, WaterBodyService) {
+    .directive('tester',function(){
+      return {
+        restrict:'EA',
+        template:'<div class="test-directive">A:{{values.a||"null"}},B:{{values.b||"null"}}</div>',
+        scope:{
+          values:'='
+        },
+        link:function($scope, $elem){
+          console.log('tester link function called');
+          $scope.$on('tester.newData',function(e,data){
+            console.log(data);
+            $scope.values = data;
+          });
+
+            // attr.watch(values);
+        }
+      }
+    })
+    .controller('appController', function($scope, $q, $filter, WaterBodyService,$timeout) {
+
+      $scope.testerValues = {a:1,b:2};
+      $scope.loading = false;
+      $scope.testerDirect= function(){
+        console.log('direct testing event called')
+        $scope.testerValues = {a:44,b:444};
+        // $scope.$broadcast('tester.newData',{a:44,b:444});
+
+      }
+
+      $scope.testerEvent = function(){
+        console.log('broadcast testing event called')
+        // $scope.testerValues = {a:44,b:444};
+        $scope.$broadcast('tester.newData',{a:66,b:666});
+
+      }
+
+      $scope.testerDeferred =function(){
+        //or http.get().success() etc
+        $scope.loading = true;
+        $timeout(function(){
+
+          $scope.$broadcast('tester.newData',{a:99,b:999});
+          $scope.loading = false;
+        },1000)
+
+      }
+
 
       var paramData = {
         "wb_list": [1008000000, 1010000000, 1045000000],
@@ -177,8 +223,6 @@
         });
         
       }
-
-
 
     });
 

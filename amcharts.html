@@ -28,6 +28,14 @@
   <button ng-click="updateGraph()">
     RELOAD?
   </button>
+  <button ng-disabled="loading" ng-click="testerDirect()">Parent scope manipulation</button>
+  <button ng-disabled="loading" ng-click="testerEvent()">Event broadcast</button>
+  <button ng-disabled="loading" ng-click="testerDeferred()">
+  
+    <span ng-hide="loading">Event broadcast</span>
+    <span ng-show="loading">Loading</span>
+  </button>
+  <tester values="testerValues"></tester>
   </p>  
 </div>
 
